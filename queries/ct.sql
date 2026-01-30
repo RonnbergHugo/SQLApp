@@ -14,7 +14,7 @@ FOREIGN KEY (customerId) REFERENCES customers(id)
 
 CREATE TABLE products (
 id INTEGER IDENTITY(1, 1) PRIMARY KEY,
-name VARCHAR(31),
+name VARCHAR(31) UNIQUE,
 description VARCHAR(255),
 price DECIMAL(8, 2) NOT NULL
 	CHECK (price >= 0)
@@ -22,7 +22,7 @@ price DECIMAL(8, 2) NOT NULL
 
 CREATE TABLE categories (
 id INTEGER IDENTITY(1, 1) PRIMARY KEY,
-category VARCHAR(31)
+category VARCHAR(31) UNIQUE
 );
 
 CREATE TABLE orderItems (
