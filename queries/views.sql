@@ -7,6 +7,8 @@ SELECT
 FROM customers c
 JOIN orders o ON c.id = o.customerId;
 
+GO
+
 CREATE VIEW vwOrderTotals AS
 SELECT
     o.id AS OrderId,
