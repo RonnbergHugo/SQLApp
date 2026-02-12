@@ -51,7 +51,22 @@ namespace SQLapp {
                             break;
 
                         case "Reports":
-                            break;
+							string report = AnsiConsole.Prompt(
+					            new SelectionPrompt<string>()
+						            .Title("Reports: ")
+						            .AddChoices("Total sales per order", "Top selling products", "Top customers"));
+                            switch (report) {
+                                case "Total sales per order":
+                                    ReportService.TotalSalesPerOrder();
+                                    break;
+                                case "Top selling products":
+                                    ReportService.TopSellingProducts();
+                                    break;
+                                case "Top customers":
+                                    ReportService.TopCustomers();
+                                    break;
+							}
+							break;
 
                         case "Exit":
                             return;
