@@ -115,6 +115,10 @@ namespace SQLapp {
 							Console.WriteLine("Felaktigt ID.");
 							return;
 						}
+						if (!eHandel.Customers.Any(c => c.Id == id)) {
+							Console.WriteLine("Customer finns inte.");
+							return;
+						}
 						order.CustomerId = id;
 						break;
 				}
