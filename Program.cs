@@ -38,6 +38,7 @@ namespace SQLapp {
                             break;
 
                         case "Create Order":
+                            OrderService.CreateOrder();
                             break;
 
                         case "Update Order":
