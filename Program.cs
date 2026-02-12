@@ -35,6 +35,7 @@ namespace SQLapp {
                             break;
 
                         case "Add Product To Order":
+                            ProductService.AddProductToOrder();
                             break;
 
                         case "Create Order":
