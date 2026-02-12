@@ -1,14 +1,26 @@
-﻿using SQLapp.Models;
+﻿using Microsoft.IdentityModel.Tokens;
+using Spectre.Console;
+using SQLapp.Models;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Text;
 
 namespace SQLapp {
 	internal class OrderService {
-		public static void CreateOrder() {
-			using (var eHandel = new EHandelContext()) {
-				string address;
+		public static void getAddress(ref string s) {
+			Console.Write("Address: ");
 
+			s = Console.ReadLine();
+
+			if (string.IsNullOrWhiteSpace(s))
+				Console.WriteLine("Felaktig address.");
+		}
+
+		public static void CreateOrder() {
+			string address = "";
+
+			using (var eHandel = new EHandelContext()) {
 				Console.Write("Customer Id: ");
 
 				if (!int.TryParse(Console.ReadLine(), out int customerId)) {
@@ -23,13 +35,10 @@ namespace SQLapp {
 					return;
 				}
 
-				Console.Write("Address: ");
-				address = Console.ReadLine();
+				OrderService.getAddress(ref address);
 
-				if (string.IsNullOrWhiteSpace(address)) {
-					Console.WriteLine("Felaktig address.");
+				if (address.IsNullOrEmpty())
 					return;
-				}
 
 				var order = new Order {
 					CustomerId = customerId,
@@ -67,5 +76,53 @@ namespace SQLapp {
 			}
 		}
 
+		public static void UpdateOrder() {
+			string address = "";
+			int id;
+
+			using (var eHandel = new EHandelContext()) {
+				Console.Write("Order Id: ");
+
+				if (!int.TryParse(Console.ReadLine(), out id)) {
+					Console.WriteLine("Felaktigt ID.");
+					return;
+				}
+
+				var order = eHandel.Orders.Find(id);
+
+				if (order == null) {
+					Console.WriteLine("Order finns inte.");
+					return;
+				}
+
+				string choice = choice = AnsiConsole.Prompt(
+					new SelectionPrompt<string>()
+						.Title("Uppdatera: ")
+						.AddChoices("Address", "Customer"));
+
+				switch (choice) {
+					case "Address":
+						OrderService.getAddress(ref address);
+
+						if (address.IsNullOrEmpty())
+							return;
+						order.Address = address;
+						break;
+					case "Customer":
+						Console.Write("Customer Id: ");
+
+						if (!int.TryParse(Console.ReadLine(), out id)) {
+							Console.WriteLine("Felaktigt ID.");
+							return;
+						}
+						order.CustomerId = id;
+						break;
+				}
+
+				eHandel.SaveChanges();
+
+				Console.WriteLine("Status uppdaterad!");
+			}
+		}
 	}
 }
