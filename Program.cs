@@ -43,9 +43,11 @@ namespace SQLapp {
                             break;
 
                         case "Update Order":
+                            OrderService.UpdateOrder();
                             break;
 
                         case "Delete Order":
+                            OrderService.DeleteOrder();
                             break;
 
                         case "Reports":
