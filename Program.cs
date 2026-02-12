@@ -27,9 +27,11 @@ namespace SQLapp {
                 try {
                     switch (choice) {
                         case "List Customers":
+                            CustomerService.ListCustomers();
                             break;
 
                         case "List Products":
+                            ProductService.ListProducts();
                             break;
 
                         case "Add Product To Order":
@@ -55,7 +57,10 @@ namespace SQLapp {
                 catch (Exception ex) {
                     AnsiConsole.MarkupLine($"[red]Fel: {ex.Message}[/]");
                 }
-            }
+
+				AnsiConsole.MarkupLine("\nTryck valfri tangent...");
+                Console.ReadKey();
+			}
         }
     }
 }
