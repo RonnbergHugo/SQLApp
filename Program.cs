@@ -1,66 +1,61 @@
 ﻿using Spectre.Console;
 using System.Drawing;
 
-namespace SQLapp
-{
-    internal class Program
-    {
-        static void Main(string[] args)
-        {
-            AnsiConsole.Clear();
-            AnsiConsole.Write(new FigletText("Store DB App").Centered().Color(Spectre.Console.Color.Green));
+namespace SQLapp {
+    internal class Program {
+        static void Main(string[] args) {
 
-            var choice = AnsiConsole.Prompt(
-                new SelectionPrompt<string>()
-                    .Title("[yellow]Välj ett alternativ[/]")
-                    .AddChoices(new[]
-                    {
-                        "List Customers",
-                        "List Products",
-                        "Add Product To Order",
-                        "Create Order",
-                        "Update Order",
-                        "Delete Order",
-                        "Reports",
-                        "Exit"
-                    }));
-            try
-            {
-                switch (choice)
-                {
-                    case "List Customers":
-                        break;
+            while (true) {
+                AnsiConsole.Clear();
+                AnsiConsole.Write(new FigletText("Store DB App").Centered().Color(Spectre.Console.Color.Green));
 
-                    case "List Products":
-                        break;
+                var choice = AnsiConsole.Prompt(
+                    new SelectionPrompt<string>()
+                        .Title("[yellow]Välj ett alternativ[/]")
+                        .AddChoices(new[]
+                        {
+                            "List Customers",
+                            "List Products",
+                            "Add Product To Order",
+                            "Create Order",
+                            "Update Order",
+                            "Delete Order",
+                            "Reports",
+                            "Exit"
+                        }));
 
-                    case "Add Product To Order":
-                        break;
+                try {
+                    switch (choice) {
+                        case "List Customers":
+                            break;
 
-                    case "Create Order":
-                        break;
+                        case "List Products":
+                            break;
 
-                    case "Update Order":
-                        break;
+                        case "Add Product To Order":
+                            break;
 
-                    case "Delete Order":
-                        break;
+                        case "Create Order":
+                            break;
 
-                    case "Reports":
-                        break;
+                        case "Update Order":
+                            break;
 
-                    case "Exit":
-                        return;
+                        case "Delete Order":
+                            break;
+
+                        case "Reports":
+                            break;
+
+                        case "Exit":
+                            return;
+                    }
+                }
+
+                catch (Exception ex) {
+                    AnsiConsole.MarkupLine($"[red]Fel: {ex.Message}[/]");
                 }
             }
-
-            catch (Exception ex)
-            {
-                AnsiConsole.MarkupLine($"[red]Fel: {ex.Message}[/]");
-            }
-
-            AnsiConsole.MarkupLine("\nTryck valfri tangent...");
-            Console.ReadKey();
         }
     }
 }
